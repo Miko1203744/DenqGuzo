@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/dsignup.css') }}" />
+    </head>
+    <body>
+        <div class="bg">
+          <div class="h-100 d-flex justify-content-center">
+            <form enctype = "multipart/form-data" class="forms" action = "/sign-up-drivers" method = "post">
+              <h2 style="color: white;">Sign-up Form</h2>
+              {% with messages = get_flashed_messages() %}
+				      {% if messages %}
+					      <div style="height: 30px; color: white; text-align: center; background-color: rgb(232, 216, 216); color: black;">
+						  {{ messages[0] }}
+					      </div>
+				      {% endif %}
+              {% endwith %}
+              <input name="username" type="text" placeholder="Enter Username " /></br></br>
+              <input name="email" type="text" placeholder="Enter Email "/></br></br>
+              <input name="password" type="password" placeholder="Enter Password " /></br></br>
+              <input name="plate" type="text" placeholder="Enter plate_number " /></br></br>
+              <input name="seats" type="text" placeholder="Enter number of seats " /></br></br>
+              <p>Upload your drivers License: <input type = "file" name="license" /></p>
+              <p>Upload your photo: <input type = "file" name="photo"/></p></br>
+              <button type="submit" value="sign-up-drivers">SignUp</button></br></br>
+            </form>
+          </div>
+        </div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+
+.message {
+    position: relative;
+    text-align: center;
+    background-color: rgb(188, 171, 109);
+    color: white;
+    height: 30px;
+}
+
+fieldset {
+    background-color: #232a27;
+    color: white;
+    display: block;
+    width: 50%;
+    border: black;
+    margin-bottom: 15px;
+}
+.ssearch {
+    display:flex;
+    justify-content: center;
+}
+.search input {
+    position: absolute;
+    left: 30%;
+    padding: 6px 3px 6px 14px;
+    display: inline;
+    border: 1px slategrey #ccc;
+    box-sizing: border-box;
+    width: 30%; 
+    height: 40px;
+}
+.search button {
+    position: relative;
+    left: 60%;
+    background-color: rgb(64, 63, 62);
+    color: white;
+    padding: 6px 3px 6px 15px;
+    border: none;
+    cursor: pointer;
+    width: 10%;
+    height: 40px;
+    transition: background-color;
+}
+.search button:hover {
+    background-color: rgb(39, 38, 36);
+}
+
+.offer{
+    background-color: rgb(64, 63, 62);
+    color: white;
+    border: none;
+    padding: 10px;
+    transition: background-color;
+}
+
+.offer:hover{
+    background-color: rgb(23, 22, 22);
+}
+
+.lbtn{
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    color: white;
+    background-color: black;
+    transition: background-color, color;
+}
+
+.lbtn:hover{
+background-color: rgb(134, 126, 126);
+color: black;
+}
+
+

@@ -1,0 +1,46 @@
+.forms h2{
+    padding: 10px;
+    text-align: center;
+  }
+  p{
+      color: white;
+      padding-left: 3px;
+  }
+  p input{
+      color: white;
+      width: 100px;
+  }
+  .forms{
+    padding: 25px;
+    position: absolute;
+    left: 25%;
+    background-color: rgb(43, 42, 41);
+    height: 550px;
+    width: 720px;
+    opacity: 0.9;
+  }
+  .forms input{
+    width: 400px;
+    height: 40px;
+    border-radius: 25px;
+    border: none;
+    position: relative;
+    left: 20%;
+  }
+  .forms button{
+    height: 50px; 
+      width: 130px; 
+      border: none;
+      padding: 4px;
+      position: absolute; 
+    top: 90%;
+    left: 39%;
+      color: white; 
+      border-radius: 20px;
+      background-color: black;
+      transition: background-color, color;
+  }
+  .forms button:hover{
+    background-color: rgb(134, 126, 126);
+    color: black;
+  }

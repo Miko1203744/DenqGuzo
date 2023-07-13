@@ -1,0 +1,21 @@
+{% extends "land.html" %}
+	{% block section %}
+                <div class="bg">
+                    {% with messages = get_flashed_messages() %}
+				        {% if messages %}
+					    <div style="text-align: center; background-color: antiquewhite; color: black;">
+						{{ messages[0] }}
+					    </div>
+				        {% endif %}
+                        {% endwith %}
+                    <div class="h-100 d-flex justify-content-center">
+                        <form action="/sign-up-riders" method="post" class="forms">
+                            <h2>SignUp Form</h2>
+                            <input id="usernme" name="username" type="text" placeholder="Enter Username " class="textbox"/></br></br>
+                            <input id="email" name="email" type="text" placeholder="Enter Email " class="textbox"/></br></br>
+                            <input id="password" name="password" type="password" placeholder="Enter Password" class="textbox"/></br></br></br>
+                            <button type="submit" value="sign-up-riders">SignUp</button></br></br>
+                        </form>
+                        </div>
+                </div>
+             {% endblock %} 
