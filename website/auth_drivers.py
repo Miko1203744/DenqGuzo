@@ -51,7 +51,6 @@ def signup():
             photo.save(os.path.join(environ.get("UPLOAD_FOLDER"), photo.filename))
             #do some fetching to check if email already exists
             data = drivers.query.filter_by(email=email).first()
-            #data = cur.fetchone()
             if data:
                 flash('Email already exists')
                 return render_template('dsignup.html')
@@ -60,13 +59,9 @@ def signup():
                 flash('Username already exists')
                 return render_template('dsignup.html')
             pn = drivers.query.filter_by(plate_number=plate).first()
-            #cur.execute('SELECT plate_number FROM drivers where plate_number=%s', (plate,))
             if pn:
                 flash('plate number already exists')
                 return render_template('dsignup.html')
-            #cur.execute('INSERT INTO DRIVERS (username, plate_number, email, password, photo, license, seats) values (%s, %s, %s, %s, %s, %s, %s, %s)', (username, plate, email, password, photo.filename, license.filename, seats, ))
-            #db.connection.commit()
-            #cur.close()
             for i in range(4):
                 OTP += digits[math.floor(random.random() * 10)]
             msg = Message("DenqGuzo", sender = 'socbeza13@gmail.com', recipients = [email])
@@ -88,11 +83,8 @@ def login():
     if request.method == 'POST' and 'password' in request.form and 'email' in request.form:
         email = request.form['email'].lower()
         pwd = request.form['password']
-        #cur = db.connection.cursor()
-        #cur.execute('SELECT EMAIL FROM DRIVERS WHERE EMAIL=%s', (email, ))
         driver = drivers.query.filter_by(email=email).first()
         if driver is not None and check_password_hash(driver.password, pwd):
-            #cur.execute('SELECT PASSWORD FROM DRIVERS WHERE EMAIL=%s', (email,))
             session['driver_id'] = driver.driver_id
             session['email'] = email
             session['pwd'] = pwd
@@ -123,7 +115,6 @@ def otp_check_drivers():
     """checks if the sent otp and the user input are the same"""
     if request.method == 'POST':
         otp = session.get('otp')
-        print(otp)
         if otp == request.form['code']:
             session.pop('otp', None)
             email = session['email']
@@ -133,13 +124,8 @@ def otp_check_drivers():
             photo = session['photo']
             license = session['license']
             seats = session['seats']
-            #cur = db.connection.cursor()
             #do some fetching to check if email already exists
-            #cur.execute('INSERT INTO DRIVERS (username, plate_number, email, password, photo, license, seats, city) values (%s, %s, %s, %s, %s, %s, %s, %s)', (username, plate, email, pwd, photo, license, seats, 'Addis Ababa', ))
             driver = drivers(username=username , plate_number=plate , email=email , password=pwd , photo=photo , license=license , seats=seats , city='Addis Ababa', created_on=datetime.now())
-	        #cur.execute('INSERT INTO users (username, email, password, created_on) values(%s, %s, %s, %s)', (username, email, generate_password_hash(pwd), datetime.now(),))
-            #db.connection.commit()
-            #cur.close()
             db.session.add(driver)
             db.session.commit()
             session.pop('email', None)
