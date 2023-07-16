@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, flash, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, current_user, login_required
+from .models import booking, drivers
 from flask_mail import Message
 from flask_session import Session
 
@@ -48,25 +49,24 @@ def signup():
             session['photo'] = photo.filename
             license.save(os.path.join(environ.get("UPLOAD_FOLDER"), license.filename))
             photo.save(os.path.join(environ.get("UPLOAD_FOLDER"), photo.filename))
-            cur = db.connection.cursor()
             #do some fetching to check if email already exists
-            cur.execute('SELECT email FROM drivers where email=%s', (email,))
-            data = cur.fetchone()
-            #print(data)
+            data = drivers.query.filter_by(email=email).first()
+            #data = cur.fetchone()
             if data:
                 flash('Email already exists')
                 return render_template('dsignup.html')
-            cur.execute('SELECT username FROM drivers where username=%s', (username,))
-            if cur.fetchone():
+            un = drivers.query.filter_by(username=username).first()
+            if un:
                 flash('Username already exists')
                 return render_template('dsignup.html')
-            cur.execute('SELECT plate_number FROM drivers where plate_number=%s', (plate,))
-            if cur.fetchone():
+            pn = drivers.query.filter_by(plate_number=plate).first()
+            #cur.execute('SELECT plate_number FROM drivers where plate_number=%s', (plate,))
+            if pn:
                 flash('plate number already exists')
                 return render_template('dsignup.html')
             #cur.execute('INSERT INTO DRIVERS (username, plate_number, email, password, photo, license, seats) values (%s, %s, %s, %s, %s, %s, %s, %s)', (username, plate, email, password, photo.filename, license.filename, seats, ))
-            db.connection.commit()
-            cur.close()
+            #db.connection.commit()
+            #cur.close()
             for i in range(4):
                 OTP += digits[math.floor(random.random() * 10)]
             msg = Message("DenqGuzo", sender = 'socbeza13@gmail.com', recipients = [email])
@@ -88,38 +88,24 @@ def login():
     if request.method == 'POST' and 'password' in request.form and 'email' in request.form:
         email = request.form['email'].lower()
         pwd = request.form['password']
-        cur = db.connection.cursor()
-        cur.execute('SELECT EMAIL FROM DRIVERS WHERE EMAIL=%s', (email, ))
-        user = cur.fetchone()
-        if user:
-            cur.execute('SELECT PASSWORD FROM DRIVERS WHERE EMAIL=%s', (email,))
-            p = cur.fetchone()
-            if p:
-                if check_password_hash(p[0], pwd):
-                    cur.execute('SELECT driver_id FROM DRIVERS WHERE EMAIL=%s and PASSWORD=%s', (email, p[0],))
-                    data = cur.fetchone()
-                    print(data)
-                    session['driver_id'] = data[0]
-                    session['email'] = email
-                    session['pwd'] = pwd
-                    session['loggedin'] = True
-                    cur.execute('SELECT USERNAME FROM DRIVERS WHERE EMAIL=%s and PASSWORD=%s', (email, p[0],))
-                    un = cur.fetchone()
-                    print(un)
-                    session['username'] = un[0]
-                    cur.execute('SELECT * FROM DRIVERS WHERE EMAIL=%s and PASSWORD=%s and VALIDATED=True', (email, p[0], ))
-                    valid = cur.fetchone()
-                    db.connection.commit()
-                    cur.close()
-                    if valid:
-                        return redirect('/main-drivers')
-                    else:
-                        return 'your application is being reviewed'
-                    # redirect successsfully logged n users to a drivers main page
-                flash('Incorrect password!')
-                return render_template('dlogin.html')
-        if user is None:
+        #cur = db.connection.cursor()
+        #cur.execute('SELECT EMAIL FROM DRIVERS WHERE EMAIL=%s', (email, ))
+        driver = drivers.query.filter_by(email=email).first()
+        if driver is not None and check_password_hash(driver.password, pwd):
+            #cur.execute('SELECT PASSWORD FROM DRIVERS WHERE EMAIL=%s', (email,))
+            session['driver_id'] = driver.driver_id
+            session['email'] = email
+            session['pwd'] = pwd
+            session['loggedin'] = True
+            session['username'] = driver.username
+            if driver.validated == 1:
+                return redirect('/main-drivers')
+            else:
+                return 'your application is being reviewed'
+        if driver is None:
             flash('Invalid username or email')
+        elif check_password_hash(driver.password, pwd) == False:
+            flash('Incorrect password!')
     return render_template("dlogin.html")
 
 @app_auth_drivers.route('/logout-drivers', methods=['GET'])
@@ -129,6 +115,7 @@ def logout():
     session.pop('email', None)
     session.pop('username', None)
     session.pop('pwd', None)
+    session.pop('book_id', None)
     return redirect('/')
 
 @app_auth_drivers.route('/otp-drivers', methods=['GET', 'POST'])
@@ -136,6 +123,7 @@ def otp_check_drivers():
     """checks if the sent otp and the user input are the same"""
     if request.method == 'POST':
         otp = session.get('otp')
+        print(otp)
         if otp == request.form['code']:
             session.pop('otp', None)
             email = session['email']
@@ -145,12 +133,15 @@ def otp_check_drivers():
             photo = session['photo']
             license = session['license']
             seats = session['seats']
-            cur = db.connection.cursor()
+            #cur = db.connection.cursor()
             #do some fetching to check if email already exists
-            cur.execute('INSERT INTO DRIVERS (username, plate_number, email, password, photo, license, seats, city) values (%s, %s, %s, %s, %s, %s, %s, %s)', (username, plate, email, pwd, photo, license, seats, 'Addis Ababa', ))
-            #cur.execute('INSERT INTO users (username, email, password, created_on) values(%s, %s, %s, %s)', (username, email, generate_password_hash(pwd), datetime.now(),))
-            db.connection.commit()
-            cur.close()
+            #cur.execute('INSERT INTO DRIVERS (username, plate_number, email, password, photo, license, seats, city) values (%s, %s, %s, %s, %s, %s, %s, %s)', (username, plate, email, pwd, photo, license, seats, 'Addis Ababa', ))
+            driver = drivers(username=username , plate_number=plate , email=email , password=pwd , photo=photo , license=license , seats=seats , city='Addis Ababa', created_on=datetime.now())
+	        #cur.execute('INSERT INTO users (username, email, password, created_on) values(%s, %s, %s, %s)', (username, email, generate_password_hash(pwd), datetime.now(),))
+            #db.connection.commit()
+            #cur.close()
+            db.session.add(driver)
+            db.session.commit()
             session.pop('email', None)
             session.pop('pwd', None)
             session.pop('username', None)

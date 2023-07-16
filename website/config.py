@@ -10,10 +10,12 @@ ENVIRONMENT = environ.get("FLASK_ENV")
 FLASK_APP = environ.get("FLASK_APP")
 FLASK_DEBUG = environ.get("FLASK_DEBUG")
 
-MYSQL_HOST = environ.get("MYSQL_HOST")
-MYSQL_USER = environ.get("MYSQL_USER")
-MYSQL_DB = environ.get("MYSQL_DB")
-MYSQL_PASSWORD = environ.get("MYSQL_PASSWORD")
+#MYSQL_HOST = environ.get("MYSQL_HOST")
+#MYSQL_USER = environ.get("MYSQL_USER")
+#MYSQL_DB = environ.get("MYSQL_DB")
+#MYSQL_PASSWORD = environ.get("MYSQL_PASSWORD")
+
+SQLALCHEMY_DATABASE_URI = environ.get("SQLALCHEMY_DATABASE_URI")
 
 MAIL_SERVER = environ.get("MAIL_SERVER")
 MAIL_PORT = environ.get("MAIL_PORT")

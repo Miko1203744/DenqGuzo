@@ -29,10 +29,13 @@
   <fieldset class="dinfo">
     {% if filename %}
     <img class="img_d" src="{{ url_for('static', filename='files/' + filename) }}">
-    <p>Driver's name: {{driver[1]}}</p>
-    <p>Plate Number: {{driver[3]}}</p>
+    <p>Driver's name: {{ driver.username }}</p>
+    <p>Plate Number: {{ driver.plate_number }}</p>
     {% endif %}
 </fieldset>
   {% endif %}
+  <form method="post" action="/cancel-booking">
+    <button class="lbtn">Cancel Booking</button>
+  </form>
   {% endblock %}
 

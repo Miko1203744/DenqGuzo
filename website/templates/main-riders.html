@@ -27,6 +27,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Help</a>
                </li>
+               {% if session['is_admin']%}
+          <li class="nav-item">
+            <a class="nav-link" href="/admin">Admin</a>
+         </li>
+          {% endif %}
                <li class="nav-item rounded-circle border" style="color: beige; background-color: rgb(64, 69, 74); width:40px; height:40px; margin-left: 10px;">
                     <a href="#" data-toggle="modal" data-target="#myModal"  class="nav-link d-flex align-items-center justify-content-center" alt="Profile"><b>{{session['username'][0]}}</b></a>
                     <div class="modal fade" id="myModal" role="dialog">
@@ -65,13 +70,13 @@
         <select class="form-control" name="pickup">
           <option value="none" selected disabled hidden>Choose pickup Location</option>
           {% for i in all_loc %}
-          <option value="{{ i[1] }}">{{ i[1] }}</option>
+          <option value="{{ i.name }}">{{ i.name }}</option>
           {% endfor %}
         </select></br></br>
         <select class="form-control" name="destination">
             <option value="none" selected disabled hidden>Choose destination</option>
             {% for i in all_loc %}
-            <option value="{{ i[1] }}">{{ i[1] }}</option>
+            <option value="{{ i.name }}">{{ i.name }}</option>
             {% endfor %}
           </select></br>
           <input type="submit" value="Book">

@@ -3,6 +3,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, current_user, login_required
 from flask_mail import Message
 from flask_session import Session
+from .models import users
+
 from . import db, mail
 import random, math
 from datetime import datetime
@@ -21,20 +23,15 @@ def signup():
         session['email'] = email
         session['pwd'] = pwd
         session['username'] = username
-        cur = db.connection.cursor()
-        #do some fetching to check if email already exists
-        cur.execute('SELECT email FROM users where email=%s', (email,))
-        data = cur.fetchone()
-        #print(data)
+        data = users.query.filter_by(email=email).first()
         if data:
             flash('Email already exists')
-            return render_template('signup.html')
-        cur.execute('SELECT username FROM users where username=%s', (username,))
-        if cur.fetchone():
+            return render_template('rsignup.html')
+        #cur.execute('SELECT username FROM users where username=%s', (username,))
+        un = users.query.filter_by(username=username).first()
+        if un:
             flash('Username already exists')
-            return render_template('signup.html')
-        db.connection.commit()
-        cur.close()
+            return render_template('rsignup.html')
         for i in range(4):
             OTP += digits[math.floor(random.random() * 10)]
         msg = Message("Denqguzo", sender = 'socbeza13@gmail.com', recipients = [request.form['email']])
@@ -50,46 +47,30 @@ def login():
     if request.method == 'POST' and 'password' in request.form and 'email' in request.form:
         email = request.form['email'].lower()
         pwd = request.form['password']
-        cur = db.connection.cursor()
-        cur.execute('SELECT EMAIL FROM USERS WHERE EMAIL=%s', (email, ))
-        user = cur.fetchone()
-        if user:
-            cur.execute('SELECT PASSWORD FROM USERS WHERE EMAIL=%s', (email,))
-            p = cur.fetchone()
-            if p:
-                if check_password_hash(p[0], pwd):
-                    cur.execute('SELECT user_id FROM USERS WHERE EMAIL=%s and PASSWORD=%s', (email, p[0],))
-                    data = cur.fetchone()
-                    print(data)
-                    session['user_id'] = data[0]
-                    session['email'] = email
-                    session['pwd'] = pwd
-                    session['loggedin'] = True
-                    cur.execute('SELECT USERNAME FROM USERS WHERE EMAIL=%s and PASSWORD=%s', (email, p[0],))
-                    un = cur.fetchone()
-                    print(un)
-                    session['username'] = un[0]
-                    #cur.execute('SELECT USERNAME FROM USERS WHERE EMAIL=%s and PASSWORD=%s and IS_ADMIN=%s', (email, p[0], True, ))
-                    #a = cur.fetchone()
-                    #if a:
-                    #    session['is_admin'] = True 
-                    db.connection.commit()
-                    cur.close()
-                    return redirect('/main-riders')
-                flash('Incorrect password')
-                return render_template('rlogin.html')
+        user = users.query.filter_by(email=email).first()
+        print(user)
+        if user is not None and check_password_hash(user.password, pwd):
+            #cur.execute('SELECT PASSWORD FROM USERS WHERE EMAIL=%s', (email,))
+            session['user_id'] = user.user_id
+            session['email'] = email
+            session['pwd'] = pwd
+            session['loggedin'] = True
+            session['username'] = user.username
+            session['is_admin'] = user.is_admin
+            return redirect('/main-riders')
         if user is None:
-            flash('Invalid email or password')
+            flash('Invalid username or email')
+        elif check_password_hash(user.password, pwd) == False:
+            flash('Incorrect password!')
     return render_template("rlogin.html")
 
 @app_auth_riders.route('/logout-riders', methods=['GET'])
 def logout():
-    # also delete their bookings
-    cur = db.connection.cursor()
-    cur.execute('update users set book_id=NULL where user_id=%s', (session['user_id'],))
-    cur.execute('update users set driver_id=NULL where user_id=%s', (session['user_id'],))
-    db.connection.commit()
-    cur.close()
+    user = users.query.filter_by(user_id=session['user_id']).first()
+    user.book_id = None
+    user.driver_id = None
+    db.session.add(user)
+    db.session.commit()
     session.pop('user_id', None)
     session.pop('loggedin', None)
     session.pop('email', None)
@@ -97,7 +78,6 @@ def logout():
     session.pop('pwd', None)
     session.pop('is_admin', None)
     return redirect('/')
-
 
 @app_auth_riders.route('/otp-riders', methods=['GET', 'POST'])
 def otp_check():
@@ -110,11 +90,12 @@ def otp_check():
             email = session['email']
             pwd = session['pwd']
             username = session['username']
-            cur = db.connection.cursor()
+            #cur = db.connection.cursor()
             #do some fetching to check if email already exists
-            cur.execute('INSERT INTO users (username, email, password, created_on) values(%s, %s, %s, %s)', (username, email, generate_password_hash(pwd), datetime.now(),))
-            db.connection.commit()
-            cur.close()
+            #cur.execute('INSERT INTO users (username, email, password, created_on) values(%s, %s, %s, %s)', (username, email, generate_password_hash(pwd), datetime.now(),))
+            user1 = users(username=username, email=email, password=generate_password_hash(pwd), created_on=datetime.now())
+            db.session.add(user1)
+            db.session.commit()
             session.pop('email', None)
             session.pop('pwd', None)
             session.pop('username', None)
