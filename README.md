@@ -12,3 +12,5 @@ The idea was conceived when my teammate Mikyas, who developed this application w
   - HTML
   - CSS
 
+
+Deployed app : http://denqguzo.pythonanywhere.com
