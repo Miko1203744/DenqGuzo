@@ -1,1 +1,347 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>denkguzo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+
+  .n{
+    min-height: 100vh;
+    width: 80%;
+    margin: auto;
+    display: block;
+    align-items: center;
+  }
+     .faq.active .answer {
+      max-height: 300px;
+     }
+    .faq{
+      max-width: 700px;
+      margin-top: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid rgb(10, 6, 6);
+      cursor: pointer;
+    }
+ .question h3 {
+  font-size: 1.8rem;
+
+ }
+ .answer{
+  max-height: 0;
+  overflow: hidden;
+ }
+ .answer p{
+  padding-top: 0.5rem;
+  line-height: 1.2;
+  font-size: 1.4rem;
+ }
+    .question{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .lo{
+        background: url("static/img/jo.jpg") center;
+        height: 800px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+        
+    }
+    .slide{
+     border-radius: 30px;
+    }
+   
+    .card-img-top:hover{
+      transform: translateY(-10px);
+    }
+    @media screen and (max-width:930px){
+      .lo{
+        background: url("static/img/g.jpg") center;
+        height: 800px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;         
+                  }
+                }
+                footer {
+background-color: #f9f9f9;
+padding: 20px;
+text-align: center;
+font-size: 14px;
+color: #555;
+                }   
+</style>
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">denkguzo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">en</a>
+                </li>
+                <li class="nav-item dropdown dropleft">
+                  <a class="nav-link dropdown-toggle"  data-toggle="dropdown" href="#">
+                    login
+                  </a>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/login-riders">ride login</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/login-drivers">driver login</a>
+                  </div>
+              </li>
+              <li class="nav-item dropdown dropleft">
+                <a class="nav-link dropdown-toggle"  data-toggle="dropdown" href="#">
+                  register
+                </a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="/sign-up-riders">ride register</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/sign-up-drivers">driver register</a>
+                </div>
+            </li>
+            </ul>
+        </div>
+    </nav>
+<section id="1" class="lo">
+  <div class="container-fluid">
+<div class="row">
+    <div class=" col-xs-12 col-sm-6">
+        <div class="card col-sx-12 text-light border-2 " style="height: 300px;background-color:#7a81a8; border-top-right-radius: 20px;border-bottom-right-radius: 20px; margin-top: 100px;font-family: sans-serif;">
+            <div class="card-body mr-5">
+              <h1 class="card-title" style="font-family:sans-serif">Reduce Waste Of Time And Cost In Transport</h1>
+              <p class="card-text ml-5"  style="margin-left: 100px;font-family:sans-serif">use different minibus that are vicinty to your location</p>
+              <p class="card-text ml-5"  style="margin-left: 300px;font-family:sans-serif">+100,000 peoples use our app</p>
+              <a href="/sign-up-riders" class="btn btn-primary" style="margin-left: 100px;">sign up here</a>
+            </div>
+          </div>
+      <div class="col-6">
+
+      </div>
+    </div>
+
+</div>
+  </div>
+</section>
+<!--    finished section one-->
+<section id="2" style="min-height:100vh; height: 2000px; margin-top: 100px;">
+    <div class="container">
+    <div class="row ">
+        <div class="col-sm-12 ">
+          <div class="card" style="border: none;">
+            <div class="card-body">
+              <h1 class="card-title" style="font-family:sans-serif;">Deliver comfort environment to customer makes as choicable</h1>
+              <p class="card-text" style="margin-left: 50px;font-family:sans-serif;">user no need to feel stuffy because we provide ventilation and and amount of person<br> that we take are based on the size of mibus .there is no overload</p>
+              <img class="card-img-top b-4 w-50 " src="static/img/ho.jpg" style="border-radius: 20px; margin-left: 50px;" alt="Card image" >
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 " style="margin-top: 100px;">
+          <div class="card" style="border: none;">
+            <div class="card-body">
+              <h1 class="card-title" style="font-family:sans-serif;">reducing waste of time waiting for minibus</h1>
+              <p class="card-text" style="margin-left: 50px;font-family:sans-serif;">real time provide service makes as unqiue and<br> we reduce long get line to get a taxi by providing efficent </p>
+              <img class="card-img-top  w-50" src="static/img/line.jpg" alt="Card image" style="border-radius: 20px; margin-left: 50px;" >
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 " style="margin-top: 100px;">
+          <div class="card" style="border: none;">
+            <div class="card-body">
+              <h1 class="card-title"style="font-family:sans-serif;">supply sufficent amount of minibus for user</h1>
+              <p class="card-text" style="margin-left: 50px;font-family:sans-serif;"> we report data to country transport authorization by identify a place that notice lack of minibus<br> and to deliver  sufficent amount as much as possible</p>
+              <img class="card-img-top  w-50" src="static/img/wq.jpg" alt="Card image" style="border-radius: 20px; margin-left: 50px;" >
+            </div>
+          </div>
+        </div>
+        
+              <!--  </div>
+        <div class="col-4">
+          <div class="card mt-5 " style="height: 300px; border-radius: 20px;">  
+            <div class="card w-100">
+                 <img class="card-img-top" src="static/img/ho.jpg" alt="Card image" style="width:100%">
+                  
+                 </div>
+               </div>
+
+        </div>
+    
+    </div>-->
+    </div>
+    </div>
+  
+</section>
+<section id="3" style="min-height: 100vh; height: 1400px; margin-top: 200px; margin-bottom:500px;">
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-10 col-xl-8 text-center">
+        <h3 class="mb-4">Testimonials</h3>
+        <p class="mb-4 pb-2 mb-md-5 pb-md-0"style="font-family:sans-serif;">
+          lists are testimonials that we get from our users those try our product and love to be our customer  
+        </p>
+      </div>
+    </div>
+  
+    <div class="row text-center d-flex align-items-stretch">
+      <div class="col-sm-4 mb-5 mb-md-0 d-flex align-items-stretch">
+        <div class="card testimonial-card">
+          <div class="card-up" style="background-color: #9d789b;"></div>
+          <div class="avatar mx-auto bg-white">
+            <img src="static/img/za.jpg" style="width: 300px; height: 300px;"
+              class="rounded-circle img-fluid" />
+          </div>
+          <div class="card-body">
+            <h4 class="mb-4"style="font-family:sans-serif;">Maria Smantha</h4>
+            <hr />
+            <p class="dark-grey-text mt-4">
+              <i class="fas fa-quote-left pe-2"style="font-family:sans-serif;"></i>am so glad to get this kind of website in our country my daily life change dramatically 
+              after i use this site
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 mb-5 mb-md-0 d-flex align-items-stretch">
+        <div class="card testimonial-card">
+          <div class="card-up" style="background-color: #7a81a8;"></div>
+          <div class="avatar mx-auto bg-white">
+            <img src="static/img/zi.jpg" style="width: 300px; height: 300px;"
+              class="rounded-circle img-fluid" />
+          </div>
+          <div class="card-body">
+            <h4 class="mb-4"style="font-family:sans-serif;">Lisa Cudrow</h4>
+            <hr />
+            <p class="dark-grey-text mt-4">
+              <i class="fas fa-quote-left pe-2"style="font-family:sans-serif;"></i>i am turist actually i have been hear for the first time becuase of that i worry a lot how i get tranport in addis abeba before i came here.but i when i arrived all things completely changed thank Denkguzo.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 mb-5 mb-md-0 d-flex align-items-stretch">
+        <div class="card testimonial-card">
+          <div class="card-up" style="background-color: #6d5b98;"></div>
+          <div class="avatar mx-auto bg-white">
+            <img src="static/img/zu.jpg" style="width: 300px; height: 300px;"
+              class="rounded-circle img-fluid" />
+          </div>
+          <div class="card-body">
+            <h4 class="mb-4"style="font-family:sans-serif;">John Smith</h4>
+            <hr />
+            <p class="dark-grey-text mt-4">
+              <i class="fas fa-quote-left pe-2"style="font-family:sans-serif;"></i>thank Denkguzo keep up a good work!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="row " style="margin-top: 200px;">
+    <div class="col-xs-12  col-md-6 mb-5">
+      <div class="card-body">
+        <h1 class="card-title"style="font-family:sans-serif;" >Create your account Today and Get Started</h1>
+        <p class="card-text" style="margin-left: 50px;font-family:sans-serif;">you need to get adequate service for amount of money you pay</p>
+        <a href="/sign-up-riders" class="btn btn-primary" style="margin-left: 100px;">sign up here</a>  
+      </div>
+    </div>
+    <div class="col-md-6 col-xs-12 ">
+      <div class="card" style="border: none;">
+        <img class="card-img-top w-100" src="static/img/wq.jpg" alt="Card image" style="border-radius: 20px; margin-bottom: 200px; " >
+          </div>
+
+    </div>
+  
+   <div class="col-12 ">
+  <h2 class="title"style="font-family:sans-serif;">FAQs</h2>
+  <div class="n">
+  <div class="faq">
+    <div class="question">
+      <h3 style="font-family:sans-serif;">what is Denkguzo ?</h3>
+      <svg width="15" height="10" viewBox="0 0 42 25">
+        <path d="M3 3L21 21L39 3" stroke="white" stroke-width="7" stroke-linecap="round"/>
+      </svg>
+    </div>
+   <div class="answer">
+    <P style="font-family:sans-serif;">Denkguzo is a private developed minibus website that serve customer by provide minibus service using current technology
+    </P>
+   </div>
+  </div>
+  <div class="faq">
+    <div class="question">
+      <h3 style="font-family:sans-serif;">why this website developed?</h3>
+      <svg width="15" height="10" viewBox="0 0 42 25">
+        <path d="M3 3L21 21L39 3" stroke="white" stroke-width="7" stroke-linecap="round"/>
+      </svg>
+    </div>
+   <div class="answer">
+    <P style="font-family:sans-serif;">The reason we have been developed this website because we have a great enthusiastic
+      to solve transport issue that persisitantly notice in our country
+    </P>
+   </div>
+  </div>
+  <div class="faq">
+    <div class="question">
+      <h3 style="font-family:sans-serif;">is Denkguzo provide service other than transport?</h3>
+      <svg width="15" height="10" viewBox="0 0 42 25">
+        <path d="M3 3L21 21L39 3" stroke="white" stroke-width="7" stroke-linecap="round"/>
+      </svg>
+    </div>
+   <div class="answer">
+    <P style="font-family:sans-serif;">that is really important question but for know we only provide transport service may be in the future we provide other related service
+    </P>
+   </div>
+  </div>
+   </div>
+  </div>
+  <div class="col-sx-12 col-sm-12 ">
+<footer>
+<p style="font-family:sans-serif;">© 2021 My Webpage. All rights reserved.</p>
+<p style="font-family:sans-serif;">Contact: email@example.com | Phone: 123-456-7890</p>
+<p style="font-family:sans-serif;">Address: 123 Main St, City, State ZIP</p>
+</footer>
+  </div>
+  </div>
+  </div>
+</section>
+<script>
+   /* var do= document.getElementById("background");
+var color = ["red", "blue", "brown", "green"];
+var i = 0;
+function change() {
+  doc.style.color = color[i];
+  i++;
+  
+  if(i > color.length-1 ) {
+    i = 0;
+  }
+}
+setInterval(change, 1000);
+*/
+const faqs=document.querySelectorAll(".faq");
+faqs.forEach(faq =>{
+  faq.addEventListener("click",() => {
+    faq.classList.toggle("active");
+  })
+})
+</script>
+
+</body>
+</html>
